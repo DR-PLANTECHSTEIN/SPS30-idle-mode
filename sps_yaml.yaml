@@ -1,0 +1,25 @@
+#-------------------------------------------
+# CUSTOM COMPONENT
+# Custom SPS30 component
+# https://github.com/esphome/feature-requests/issues/2385
+#-------------------------------------------
+external_components:
+  - source: custom_component
+
+switch:
+#-------------------------------------------
+# Switch template: Measure sensor SPS30
+#-------------------------------------------
+  - platform: template
+    name: "${friendly_name} SPS30 Measure"
+    id: measure_sps30
+    optimistic: True
+    on_turn_off:
+      then:
+        - lambda: id(my_sps30).stop_measure();
+    on_turn_on:
+      then:
+        - lambda: id(my_sps30).start_measure();
+    entity_category: config
+    icon: mdi:restart-off
+    restore_mode: ALWAYS_ON
